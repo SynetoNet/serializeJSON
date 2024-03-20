@@ -1,4 +1,4 @@
-jquery.serializeJSON
+serializeJSON
 ====================
 
 Adds the method `serializeJSON()` to serialize a form into a JavaScript Object. Supports the same format for nested parameters that is used in Ruby on Rails.
@@ -6,7 +6,7 @@ Adds the method `serializeJSON()` to serialize a form into a JavaScript Object. 
 Install
 -------
 
-Install with [npm](https://www.npmjs.com/) `npm install @syneto/serializejson`, or just download the [serializejson.js](https://raw.githubusercontent.com/SynetoNet/serializeJSON/master/serializejson.js) script.
+Install with [npm](https://www.npmjs.com/) `npm install @syneto/serializejson`, or just download the [serializejson.js](https://raw.githubusercontent.com/SynetoNet/serializeJSON/master/dist/serializejson.js) script.
 
 
 Usage Example
@@ -84,7 +84,7 @@ HTML form:
 JavaScript:
 
 ```javascript
-$('#my-profile').serializeJSON();
+serializeJSON(document.querySelector('#my-profile'));
 
 // returns =>
 {
@@ -116,7 +116,7 @@ To convert into a JSON String, use the `JSON.stringify` method, that is availabl
 If you need to support very old browsers, just include the [json2.js](https://github.com/douglascrockford/JSON-js) polyfill (as described on [stackoverfow](http://stackoverflow.com/questions/191881/serializing-to-json-in-jquery)).
 
 ```javascript
-var obj = $('form').serializeJSON();
+var obj = serializeJSON(document.querySelector('form'));
 var jsonString = JSON.stringify(obj);
 ```
 
@@ -154,7 +154,7 @@ Fields values are `:string` by default. But can be parsed with types by appendin
 ```
 
 ```javascript
-$('form').serializeJSON();
+serializeJSON(document.querySelector('form'));
 
 // returns =>
 {
@@ -214,7 +214,7 @@ Use the `customTypes` option to provide your own parsing functions. The parsing 
 ```
 
 ```javascript
-$('form').serializeJSON({
+serializeJSON(document.querySelector('form'), {
   customTypes: {
     alwaysBoo: (strVal, el) => {
       // strVal: is the input value as a string
@@ -235,7 +235,7 @@ $('form').serializeJSON({
 The provided `customTypes` can include one of the `detaultTypes` to override the default behavior:
 
 ```javascript
-$('form').serializeJSON({
+serializeJSON(document.querySelector('form'), {
   customTypes: {
     alwaysBoo: (strVal) => { return "boo"; },
     string: (strVal) => { return strVal + "-OVERDRIVE"; },
@@ -250,13 +250,13 @@ $('form').serializeJSON({
 }
 ```
 
-Default types used by the plugin are defined in `$.serializeJSON.defaultOptions.defaultTypes`.
+Default types used by the plugin are defined in `defaultBaseOptions.defaultTypes`.
 
 
 Options
 -------
 
-With no options, `.serializeJSON()` returns the same as a regular HTML form submission when serialized as Rack/Rails params. In particular:
+With no options, `serializeJSON()` returns the same as a regular HTML form submission when serialized as Rack/Rails params. In particular:
 
   * Values are **strings** (unless appending a `:type` to the input name)
   * Unchecked checkboxes are ignored (as defined in the W3C rules for [successful controls](http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2)).
@@ -303,7 +303,7 @@ But, to make things easier, `serializeJSON` includes the option `checkboxUncheck
 Serializes like this by default:
 
 ```javascript
-$('form').serializeJSON();
+serializeJSON(document.querySelector('form'));
 
 // returns =>
 {check1: 'true'} // check2 and check3 are ignored
@@ -312,7 +312,7 @@ $('form').serializeJSON();
 To include all checkboxes, use the `checkboxUncheckedValue` option:
 
 ```javascript
-$('form').serializeJSON({checkboxUncheckedValue: "false"});
+serializeJSON(document.querySelector('form'), {checkboxUncheckedValue: "false"});
 
 // returns =>
 {check1: "true", check2: "false", check3: "false"}
@@ -333,7 +333,7 @@ The `data-unchecked-value` HTML attribute can be used to targed specific values 
 ```
 
 ```javascript
-$('form#checkboxes').serializeJSON(); // No option is needed if the data attribute is used
+serializeJSON(document.querySelector('form#checkboxes')); // No option is needed if the data attribute is used
 
 // returns =>
 {
@@ -353,7 +353,7 @@ $('form#checkboxes').serializeJSON(); // No option is needed if the data attribu
 You can use both the option `checkboxUncheckedValue` and the attribute `data-unchecked-value` at the same time, in which case the option is used as default value (the data attribute has precedence).
 
 ```javascript
-$('form#checkboxes').serializeJSON({checkboxUncheckedValue: 'NOPE'});
+serializeJSON(document.querySelector('form#checkboxes'), {checkboxUncheckedValue: 'NOPE'});
 
 // returns =>
 {
@@ -372,23 +372,7 @@ $('form#checkboxes').serializeJSON({checkboxUncheckedValue: 'NOPE'});
 
 ## Ignore Empty Form Fields
 
-You can use the option `.serializeJSON(skipFalsyValuesForTypes: ["string"])`, which ignores any string field with an empty value (default type is :string, and empty strings are falsy).
-
-Another option, since `serializeJSON()` is called on a jQuery object, is to just use the proper jQuery selector to skip empty values (see [Issue #28](https://github.com/marioizquierdo/jquery.serializeJSON/issues/28) for more info):
-
-```javascript
-// Select only imputs that have a non-empty value
-$('form :input[value!=""]').serializeJSON();
-
-// Or filter them from the form
-obj = $('form').find('input').not('[value=""]').serializeJSON();
-
-// For more complicated filtering, you can use a function
-obj = $form.find(':input').filter(function () {
-          return $.trim(this.value).length > 0
-      }).serializeJSON();
-```
-
+You can use the option `serializeJSON(skipFalsyValuesForTypes: ["string"])`, which ignores any string field with an empty value (default type is :string, and empty strings are falsy).
 
 ## Ignore Fields With Falsy Values
 
@@ -410,7 +394,7 @@ By default, all serialized keys are **strings**, this includes keys that look li
 ```
 
 ```javascript
-$('form').serializeJSON();
+serializeJSON(document.querySelector('form'));
 
 // arr is an object =>
 {'arr': {'0': 'foo', '1': 'var', '5': 'inn' }}
@@ -421,7 +405,7 @@ Which is how Rack [parse_nested_query](http://codefol.io/posts/How-Does-Rack-Par
 Use the option `useIntKeysAsArrayIndex` to interpret integers as array indexes:
 
 ```javascript
-$('form').serializeJSON({useIntKeysAsArrayIndex: true});
+serializeJSON(document.querySelector('form'), {useIntKeysAsArrayIndex: true});
 
 // arr is an array =>
 {'arr': ['foo', 'var', undefined, undefined, undefined, 'inn']}
@@ -432,17 +416,20 @@ $('form').serializeJSON({useIntKeysAsArrayIndex: true});
 
 ## Option Defaults
 
-All options defaults are defined in `$.serializeJSON.defaultOptions`. You can just modify it to avoid setting the option on every call to `serializeJSON`. For example:
+All options defaults are defined in `defaultOptions`. You can just modify it to avoid setting the option on every call to `serializeJSON`. For example:
 
 ```javascript
-$.serializeJSON.defaultOptions.checkboxUncheckedValue = ""; // include unckecked checkboxes as empty strings
-$.serializeJSON.defaultOptions.customTypes.foo = (str) => { return str + "-foo"; }; // define global custom type ":foo"
+import { setDefaultOptions } from "serializejson";
+
+setDefaultOptions({
+  ...defaultOptions,
+  checkboxUncheckedValue: "", // include unckecked checkboxes as empty strings
+  customTypes: {
+    ...defaultOptions.customTypes,
+    foo: (str) => { return str + "-foo"; } // define global custom type ":foo"
+  }
+})
 ```
-
-Contributions
--------------
-
-Contributions are awesome. Feature branch *pull requests* are the preferred method. Just make sure to add tests for it. To run the jasmine specs, just open `spec/spec_runner.html` in your browser.
 
 Changelog
 ---------
@@ -452,5 +439,6 @@ See [CHANGELOG.md](./CHANGELOG.md)
 Author
 -------
 
+Copyright (c) 2024 [Syneto](https://syneto.eu/)
 This is a plain JS version of [jquery.serializeJSON](https://github.com/marioizquierdo/jquery.serializeJSON) by Mario Izquierdo.
 
