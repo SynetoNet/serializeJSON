@@ -1,0 +1,33 @@
+{
+	"parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+		"requireConfigFile": false,
+		"allowImportExportEverywhere": true
+	},
+	"extends": "eslint:recommended",
+	"rules": {
+		"semi": ["error", "always"],
+		"quotes": ["error", "single", { "allowTemplateLiterals": true, "avoidEscape": true }],
+		"curly": ["error", "all"],
+		"object-curly-spacing": ["error", "always"],
+		"block-spacing": ["error", "always"],
+		"no-unused-vars": "off",
+		"no-undef": "off",
+		"no-useless-escape": "off",
+		"no-inner-declarations": "off",
+		"indent": ["error", "tab", { "SwitchCase": 1 }],
+		"brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+		"arrow-body-style": ["error", "always"],
+		"arrow-parens": ["error", "always"],
+		"padding-line-between-statements": [
+			"error",
+			{ "blankLine": "always", "prev": "if", "next": "return" },
+			{ "blankLine": "always", "prev": "for", "next": "return" },
+			{ "blankLine": "always", "prev": "do", "next": "return" },
+			{ "blankLine": "always", "prev": "while", "next": "return" }
+		],
+		"eol-last": 2
+	}
+}

@@ -1,18 +1,13 @@
 jquery.serializeJSON
 ====================
 
-Adds the method `.serializeJSON()` to [jQuery](http://jquery.com/) to serializes a form into a JavaScript Object. Supports the same format for nested parameters that is used in Ruby on Rails.
+Adds the method `serializeJSON()` to serialize a form into a JavaScript Object. Supports the same format for nested parameters that is used in Ruby on Rails.
 
 Install
 -------
 
-Install with [bower](http://bower.io/) `bower install jquery.serializeJSON`, or [npm](https://www.npmjs.com/) `npm install jquery-serializejson`, or just download the [jquery.serializejson.js](https://raw.githubusercontent.com/marioizquierdo/jquery.serializeJSON/master/jquery.serializejson.js) script.
+Install with [npm](https://www.npmjs.com/) `npm install @syneto/serializejson`, or just download the [serializejson.js](https://raw.githubusercontent.com/SynetoNet/serializeJSON/master/serializejson.js) script.
 
-And make sure it is included after jQuery, for example:
-```html
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="jquery.serializejson.js"></script>
-```
 
 Usage Example
 -------------
@@ -28,7 +23,8 @@ HTML form:
 
 JavaScript:
 ```javascript
-$('form').serializeJSON();
+import { serializeJSON } from '@syneto/serializejson';
+serializeJSON(document.querySelector('form'));
 
 // returns =>
 {
@@ -443,33 +439,10 @@ $.serializeJSON.defaultOptions.checkboxUncheckedValue = ""; // include unckecked
 $.serializeJSON.defaultOptions.customTypes.foo = (str) => { return str + "-foo"; }; // define global custom type ":foo"
 ```
 
-
-Alternatives
-------------
-
-Other plugins solve the same problem in similar ways:
-
- * https://github.com/macek/jquery-serialize-object
- * https://github.com/hongymagic/jQuery.serializeObject
- * https://github.com/danheberden/jquery-serializeForm
- * https://github.com/maxatwork/form2js (plain js, no jQuery)
- * https://github.com/serbanghita/formToObject.js (plain js, no jQuery)
- * https://gist.github.com/shiawuen/2634143 (simpler but small)
-
-None of them did what I needed at the time `serializeJSON` was created. Factors that differentiate `serializeJSON` from the alternatives:
-
- * Simple and small code base. The minimified version is < 1Kb.
- * Yet flexible enough with features like nested objects, unchecked-checkboxes and custom types.
- * Implementation follows the same rules as the jQuery method `serializeArray`, that creates a JavaScript array of objects, ready to be encoded as a JSON string. Taking into account the W3C rules for [successful controls](http://www.w3.org/TR/html401/interact/forms.html#h-17.13.2) for better compatibility.
- * The format for the input field names is the same used by Rails (from [Rack::Utils.parse_nested_query](http://codefol.io/posts/How-Does-Rack-Parse-Query-Params-With-parse-nested-query)), that is successfully used by many backend systems and already well understood by many front end developers.
- * Exaustive test suite helps iterate on new releases and bugfixes with confidence.
- * Compatible with [bower](https://github.com/bower/bower), [zepto.js](http://zeptojs.com/) and pretty much every version of [jQuery](https://jquery.com/).
-
-
 Contributions
 -------------
 
-Contributions are awesome. Feature branch *pull requests* are the preferred method. Just make sure to add tests for it. To run the jasmine specs, just open `spec/spec_runner_jquery.html` in your browser.
+Contributions are awesome. Feature branch *pull requests* are the preferred method. Just make sure to add tests for it. To run the jasmine specs, just open `spec/spec_runner.html` in your browser.
 
 Changelog
 ---------
@@ -479,4 +452,5 @@ See [CHANGELOG.md](./CHANGELOG.md)
 Author
 -------
 
-Written and maintained by [Mario Izquierdo](https://github.com/marioizquierdo)
+This is a plain JS version of [jquery.serializeJSON](https://github.com/marioizquierdo/jquery.serializeJSON) by Mario Izquierdo.
+
