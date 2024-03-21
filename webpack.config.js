@@ -8,7 +8,7 @@ module.exports = {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'serializejson.js',
 		library: {
-			name: 'bondClient',
+			name: 'serializejson',
 			type: 'umd',
 			umdNamedDefine: true
 		},
