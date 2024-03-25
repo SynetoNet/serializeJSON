@@ -328,7 +328,7 @@ const setDefaultOptions = function (options) {
 	defaultOptions = options;
 };
 
-module.exports = {
+export {
 	deepGet,
 	deepSet,
 	defaultOptions,
@@ -338,3 +338,5 @@ module.exports = {
 	splitInputNameIntoKeysArray,
 	splitType
 };
+
+export default serializeJSON;
