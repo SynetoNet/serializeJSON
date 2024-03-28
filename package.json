@@ -1,5 +1,5 @@
 {
-  "name": "serializejson",
+  "name": "@syneto/serializejson",
   "main": "dist/serializejson.js",
   "version": "1.0.0",
   "description": "Method to serialize a form into a JavaScript Object, using the same format as the default Ruby on Rails request params",
@@ -10,7 +10,7 @@
     "test": "jest",
     "build": "webpack --mode=production",
     "lint": "./node_modules/.bin/eslint src/",
-    "prepare": "husky install",
+    "prepare": "husky",
     "release:major": "npm version major",
     "release:minor": "npm version minor",
     "release:patch": "npm version patch",
