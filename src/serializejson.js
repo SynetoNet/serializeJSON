@@ -1,10 +1,10 @@
 /*!
-  SerializeJSON library, version 1.0.0 (Mar, 2024)
-  Forked from https://github.com/marioizquierdo/jquery.serializeJSON version 3.2.1 (Feb, 2021)
+	SerializeJSON library, version 1.0.0 (Mar, 2024)
+	Forked from https://github.com/marioizquierdo/jquery.serializeJSON version 3.2.1 (Feb, 2021)
 
-  Copyright (c) 2024 Syneto
-  Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
-  and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
+	Copyright (c) 2024 Syneto
+	Dual licensed under the MIT (http://www.opensource.org/licenses/mit-license.php)
+	and GPL (http://www.opensource.org/licenses/gpl-license.php) licenses.
 */
 
 const rCRLF = /\r?\n/g;
